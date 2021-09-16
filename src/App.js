@@ -1,25 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [Task, setTask] = useState("");
+  const [TaskList, setTaskList] = useState([]);
+
+  const handleClick = (e) => {
+    if (Task.length > 0) {
+      setTaskList(TaskList.concat(Task), { id: Date.now() });
+      setTask("");
+    }
+    e.preventDefault();
+  };
+
+  const handleDelete = (id) => {
+    setTaskList(TaskList.filter((item) => item.id !== id));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="box-container">
+      <div className="container">
+        <form onSubmit={handleClick}>
+          <h1 className="title">Todo List</h1>
+          <input
+            className="add-task-input"
+            value={Task}
+            onChange={(e) => {
+              setTask(e.target.value);
+            }}
+          />
+          <button className="button" onClick={handleClick}>
+            add
+          </button>
+          {TaskList.map((item) => (
+            <div className="task-container">
+              <p>{item}</p>
+              <button
+                className="buttondelete"
+                onClick={() => {
+                  handleDelete(item.id);
+                }}
+              >
+                X
+              </button>
+            </div>
+          ))}
+        </form>
+      </div>
     </div>
   );
-}
-
+};
 export default App;
