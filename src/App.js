@@ -7,7 +7,13 @@ const App = () => {
 
   const handleClick = (e) => {
     if (Task.length > 0) {
-      setTaskList(TaskList.concat(Task), { id: Date.now() });
+      setTaskList([
+        ...TaskList,{
+          Task: Task,
+          id: Date.now(),
+          value: Task
+        }
+      ]);
       setTask("");
     }
     e.preventDefault();
@@ -34,7 +40,7 @@ const App = () => {
           </button>
           {TaskList.map((item) => (
             <div className="task-container">
-              <p>{item}</p>
+              <p>{item.Task}</p>
               <button
                 className="buttondelete"
                 onClick={() => {
