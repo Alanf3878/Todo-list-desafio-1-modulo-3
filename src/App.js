@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./App.css";
-
 const App = () => {
   const [Task, setTask] = useState("");
   const [TaskList, setTaskList] = useState([]);
@@ -18,11 +17,9 @@ const App = () => {
     }
     e.preventDefault();
   };
-
   const handleDelete = (id) => {
     setTaskList(TaskList.filter((item) => item.id !== id));
   };
-
   return (
     <div className="box-container">
       <div className="container">
